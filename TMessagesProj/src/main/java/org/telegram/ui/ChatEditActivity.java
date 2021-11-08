@@ -104,6 +104,7 @@ public class ChatEditActivity extends BaseFragment implements ImageUpdater.Image
     private ShadowSectionCell settingsSectionCell;
 
     private TextCheckCell signCell;
+    private TextCheckCell restrictSavingCell;
 
     private FrameLayout stickersContainer;
     private TextSettingsCell stickersCell;
