@@ -791,6 +791,8 @@
     <string name="EventLogRestrictedSendMessages">Send messages</string>
     <string name="EventLogRestrictedSendEmbed">Embed links</string>
     <string name="EventLogRestrictedReadMessages">Read messages</string>
+    <string name="EventLogToggledNoForwardsEnabled">un1 restricted forwarding</string>
+    <string name="EventLogToggledNoForwardsDisabled">un1 allowed forwarding</string>
     <string name="EventLogPromoted">changed privileges of %1$s</string>
     <string name="EventLogPromotedNoRights">promoted %1$s</string>
     <string name="EventLogPromotedChangeChannelInfo">Change channel Info</string>
