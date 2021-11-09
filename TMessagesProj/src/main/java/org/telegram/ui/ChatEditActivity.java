@@ -1266,7 +1266,7 @@ public class ChatEditActivity extends BaseFragment implements ImageUpdater.Image
 
     private void updateFields(boolean updateChat) {
         if (updateChat) {
-            TLRPC.Chat chat = getMessagesController().getChat(chatId);
+            TLRPC.Chat chat = MessagesStorage.getInstance(currentAccount).getChatSync(chatId);
             if (chat != null) {
                 currentChat = chat;
             }
@@ -1345,13 +1345,10 @@ public class ChatEditActivity extends BaseFragment implements ImageUpdater.Image
             } else {
                 String type;
                 if (isChannel) {
-                    type = isPrivate ? LocaleController.getString("TypePrivate", R.string.TypePrivate) : LocaleController.getString("TypePublic", R.string.TypePublic);
-                } else {
-                    type = isPrivate ? LocaleController.getString("TypePrivateGroup", R.string.TypePrivateGroup) : LocaleController.getString("TypePublicGroup", R.string.TypePublicGroup);
-                }
-                if (isChannel) {
+                    type = isPrivate ? (currentChat.noforwards ? LocaleController.getString("TypePrivateRestricted", R.string.TypePrivateRestricted) : LocaleController.getString("TypePrivate", R.string.TypePrivate)) : LocaleController.getString("TypePublic", R.string.TypePublic);
                     typeCell.setTextAndValue(LocaleController.getString("ChannelType", R.string.ChannelType), type, historyCell != null && historyCell.getVisibility() == View.VISIBLE || linkedCell != null && linkedCell.getVisibility() == View.VISIBLE);
                 } else {
+                    type = isPrivate ? (currentChat.noforwards ? LocaleController.getString("TypePrivateRestrictedGroup", R.string.TypePrivateRestrictedGroup) : LocaleController.getString("TypePrivateGroup", R.string.TypePrivateGroup)) : LocaleController.getString("TypePublicGroup", R.string.TypePublicGroup);
                     typeCell.setTextAndValue(LocaleController.getString("GroupType", R.string.GroupType), type, historyCell != null && historyCell.getVisibility() == View.VISIBLE || linkedCell != null && linkedCell.getVisibility() == View.VISIBLE);
                 }
             }
@@ -1441,7 +1438,7 @@ public class ChatEditActivity extends BaseFragment implements ImageUpdater.Image
                 }
                 adminCell.setTextAndIcon(LocaleController.getString("ChannelAdministrators", R.string.ChannelAdministrators), R.drawable.actions_addadmin, true);
             }
-            if (info == null || !ChatObject.canUserDoAdminAction(currentChat, ChatObject.ACTION_INVITE) || (!isPrivate && currentChat.creator)) {
+            if (info == null || !ChatObject.canUserDoAdminAction(currentChat, ChatObject.ACTION_INVITE)) {
                 inviteLinksCell.setVisibility(View.GONE);
             } else {
                 if (info.invitesCount > 0) {
