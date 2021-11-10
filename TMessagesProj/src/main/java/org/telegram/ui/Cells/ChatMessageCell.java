@@ -3169,7 +3169,7 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
             drawVideoSize = false;
             canStreamVideo = false;
             animatingNoSound = 0;
-            drawSideButton = !isRepliesChat && checkNeedDrawShareButton(messageObject) && (currentPosition == null || currentPosition.last) ? 1 : 0;
+            drawSideButton = !isRepliesChat && checkNeedDrawShareButton(messageObject) && (currentPosition == null || currentPosition.last) && (!isNoForwards(messageObject.messageOwner.peer_id)) ? 1 : 0;
             if (isPinnedChat || drawSideButton == 1 && messageObject.messageOwner.fwd_from != null && !messageObject.isOutOwner() && messageObject.messageOwner.fwd_from.saved_from_peer != null && messageObject.getDialogId() == UserConfig.getInstance(currentAccount).getClientUserId()) {
                 drawSideButton = 2;
             }
@@ -8463,6 +8463,17 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
             return false;
         }
         return delegate.getTextSelectionHelper() != null && delegate.getTextSelectionHelper().isSelected(currentMessageObject);
+    }
+
+    private boolean isNoForwards(TLRPC.Peer peer) {
+        MessagesController messagesController = MessagesController.getInstance(currentAccount);
+        if (messagesController.getChat(peer.chat_id) != null) {
+            return messagesController.getChat(peer.chat_id).noforwards;
+        }
+        else if (messagesController.getChat(peer.channel_id) != null) {
+            return messagesController.getChat(peer.channel_id).noforwards;
+        }
+        else return false;
     }
 
     private int getMiniIconForCurrentState() {

@@ -1887,7 +1887,9 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             did = -chatId;
         }
         ArrayList<Integer> users = chatInfo != null && chatInfo.participants != null && chatInfo.participants.participants.size() > 5 ? sortedUsers : null;
-        sharedMediaLayout = new SharedMediaLayout(context, did, sharedMediaPreloader, userInfo != null ? userInfo.common_chats_count : 0, sortedUsers, chatInfo, users != null, this, this, SharedMediaLayout.VIEW_TYPE_PROFILE_ACTIVITY) {
+        TLRPC.Chat currentChat = getMessagesController().getChat(chatId);
+        boolean noForwards = currentChat != null && currentChat.noforwards;
+        sharedMediaLayout = new SharedMediaLayout(context, did, sharedMediaPreloader, userInfo != null ? userInfo.common_chats_count : 0, sortedUsers, chatInfo, users != null, this, this, SharedMediaLayout.VIEW_TYPE_PROFILE_ACTIVITY, noForwards) {
             @Override
             protected void onSelectedTabChanged() {
                 updateSelectedMediaTabText();
