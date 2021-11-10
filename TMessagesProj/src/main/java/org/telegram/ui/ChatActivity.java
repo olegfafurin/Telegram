@@ -20213,7 +20213,12 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                 Drawable shadowNoForwardsDrawable = ContextCompat.getDrawable(contentView.getContext(), R.drawable.popup_fixed_alert).mutate();
                 shadowNoForwardsDrawable.setColorFilter(new PorterDuffColorFilter(Theme.getColor(Theme.key_actionBarDefaultSubmenuBackground), PorterDuff.Mode.MULTIPLY));
                 SimpleTextView noForwardsAllowedInfo = new SimpleTextView(contentView.getContext());
-                noForwardsAllowedInfo.setText("Forwards from this channel are restricted");
+                if (ChatObject.isChannel(currentChat)) {
+                    noForwardsAllowedInfo.setText(LocaleController.getString("ChannelInfoNoForwards", R.string.ChannelInfoNoForwards));
+                } else {
+                    noForwardsAllowedInfo.setText(LocaleController.getString("GroupInfoNoForwards", R.string.GroupInfoNoForwards));
+                }
+
                 noForwardsAllowedInfo.setMinusWidth(15);
                 noForwardsAllowedInfo.setTextSize(16);
                 noForwardsAllowedInfo.setMaxLines(2);
@@ -20226,9 +20231,9 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                 noForwardsAllowedInfo.setPadding(20, 10, 0, 10);
 
                 FrameLayout noForwardsLayout = new FrameLayout(contentView.getContext());
-                noForwardsLayout.addView(noForwardsAllowedInfo);
+                noForwardsLayout.addView(noForwardsAllowedInfo, LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT);
                 noForwardsLayout.setBackground(shadowNoForwardsDrawable);
-                scrimPopupContainerLayout.addView(noForwardsLayout, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, 60));
+                scrimPopupContainerLayout.addView(noForwardsLayout, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, LayoutHelper.MATCH_PARENT));
             }
             scrimPopupWindow = new ActionBarPopupWindow(scrimPopupContainerLayout, LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT) {
                 @Override

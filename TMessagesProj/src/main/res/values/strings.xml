@@ -596,6 +596,8 @@
     <string name="TypePublicGroup">Public</string>
     <string name="TypeLocationGroup">Link</string>
     <string name="TypeLocationGroupEdit">Tap to add a permanent link</string>
+    <string name="ChannelInfoNoForwards">Forwards from this channel are restricted</string>
+    <string name="GroupInfoNoForwards">Forwards from this group are restricted</string>
     <string name="ChoosePhoto">Choose photo</string>
     <string name="ChoosePhotoOrVideo">Choose photo or video</string>
     <string name="AddPhoto">Set new photo</string>
