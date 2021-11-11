@@ -20224,7 +20224,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                 noForwardsAllowedInfo.setTextSize(14);
                 noForwardsAllowedInfo.setMaxLines(2);
                 noForwardsAllowedInfo.setGravity(Gravity.LEFT);
-                noForwardsAllowedInfo.setPadding(20, 10, 0, 10);
+                noForwardsAllowedInfo.setPadding(40, 15, 0, 10);
 
                 FrameLayout noForwardsLayout = new FrameLayout(contentView.getContext());
                 noForwardsLayout.addView(noForwardsAllowedInfo, LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT);
