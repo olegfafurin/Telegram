@@ -49,6 +49,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.text.Layout;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -20209,31 +20210,26 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
             }
             scrimPopupContainerLayout.addView(popupLayout, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, 0, 0, showMessageSeen ? -8 : 0, 0, 0));
 
+            SimpleTextView noForwardsAllowedInfo = null;
             if (currentChat != null && currentChat.noforwards) {
                 Drawable shadowNoForwardsDrawable = ContextCompat.getDrawable(contentView.getContext(), R.drawable.popup_fixed_alert).mutate();
                 shadowNoForwardsDrawable.setColorFilter(new PorterDuffColorFilter(Theme.getColor(Theme.key_actionBarDefaultSubmenuBackground), PorterDuff.Mode.MULTIPLY));
-                SimpleTextView noForwardsAllowedInfo = new SimpleTextView(contentView.getContext());
+                noForwardsAllowedInfo = new SimpleTextView(contentView.getContext());
                 if (ChatObject.isChannel(currentChat)) {
                     noForwardsAllowedInfo.setText(LocaleController.getString("ChannelInfoNoForwards", R.string.ChannelInfoNoForwards));
                 } else {
                     noForwardsAllowedInfo.setText(LocaleController.getString("GroupInfoNoForwards", R.string.GroupInfoNoForwards));
                 }
-
                 noForwardsAllowedInfo.setMinusWidth(15);
-                noForwardsAllowedInfo.setTextSize(16);
+                noForwardsAllowedInfo.setTextSize(14);
                 noForwardsAllowedInfo.setMaxLines(2);
-//                ActionBarMenuItem
-//                ActionBarMenuSubItem noForwardsAllowedInfo = new ActionBarMenuSubItem(getParentActivity(), true, true, themeDelegate);
-//                noForwardsAllowedInfo.setItemHeight(44);
-//                noForwardsAllowedInfo.setText("Forwards from this channel are restricted");
                 noForwardsAllowedInfo.setGravity(Gravity.LEFT);
-//                noForwardsAllowedInfo.setPadding(LocaleController.isRTL ? 0 : AndroidUtilities.dp(10), 10, LocaleController.isRTL ? AndroidUtilities.dp(10) : 0, 0);
                 noForwardsAllowedInfo.setPadding(20, 10, 0, 10);
 
                 FrameLayout noForwardsLayout = new FrameLayout(contentView.getContext());
-                noForwardsLayout.addView(noForwardsAllowedInfo, LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT);
+                noForwardsLayout.addView(noForwardsAllowedInfo, LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT);
                 noForwardsLayout.setBackground(shadowNoForwardsDrawable);
-                scrimPopupContainerLayout.addView(noForwardsLayout, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, LayoutHelper.MATCH_PARENT));
+                scrimPopupContainerLayout.addView(noForwardsLayout, LayoutHelper.createLinear(270, 60));
             }
             scrimPopupWindow = new ActionBarPopupWindow(scrimPopupContainerLayout, LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT) {
                 @Override
@@ -20297,6 +20293,9 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
             if (messageSeenView != null) {
                 messageSeenView.getLayoutParams().width = scrimPopupContainerLayout.getMeasuredWidth() - AndroidUtilities.dp(16);
             }
+//            if (noForwardsAllowedInfo != null) {
+//                noForwardsAllowedInfo.getLayoutParams().width = scrimPopupContainerLayout.getMeasuredWidth() - AndroidUtilities.dp(16);
+//            }
             int popupX = v.getLeft() + (int) x - scrimPopupContainerLayout.getMeasuredWidth() + backgroundPaddings.left - AndroidUtilities.dp(28);
             if (popupX < AndroidUtilities.dp(6)) {
                 popupX = AndroidUtilities.dp(6);
