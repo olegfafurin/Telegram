@@ -9111,10 +9111,6 @@ public class MessagesController extends BaseController implements NotificationCe
                 processUpdates((TLRPC.Updates) response, false);
                 AndroidUtilities.runOnUIThread(() -> getNotificationCenter().postNotificationName(NotificationCenter.updateInterfaces, UPDATE_MASK_CHAT));
             }
-            if (error != null) {
-                System.err.println(error.code);
-                System.err.println(error.text);
-            }
         }, ConnectionsManager.RequestFlagInvokeAfter);
     }
 
