@@ -2921,6 +2921,7 @@ public class MessagesController extends BaseController implements NotificationCe
                     oldChat.photo = chat.photo;
                     oldChat.broadcast = chat.broadcast;
                     oldChat.verified = chat.verified;
+                    oldChat.noforwards = chat.noforwards;
                     oldChat.megagroup = chat.megagroup;
                     oldChat.call_not_empty = chat.call_not_empty;
                     oldChat.call_active = chat.call_active;
@@ -2997,6 +2998,7 @@ public class MessagesController extends BaseController implements NotificationCe
                 chat.photo = oldChat.photo;
                 chat.broadcast = oldChat.broadcast;
                 chat.verified = oldChat.verified;
+                chat.noforwards = oldChat.noforwards;
                 chat.megagroup = oldChat.megagroup;
 
                 if (oldChat.default_banned_rights != null) {
